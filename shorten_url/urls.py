@@ -22,7 +22,6 @@ from drf_yasg.views import get_schema_view
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="{} API".format("wms_central".upper()),
         default_version='v1'
     ),
     public=True,
