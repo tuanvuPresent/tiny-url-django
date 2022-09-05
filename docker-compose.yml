@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  nginx:
+    restart: always
+    build: nginx/
+    volumes:
+      - static_volume:/usr/src/app/static
+      - media_volume:/usr/src/app/media
+    ports:
+      - 8123:80
+    depends_on:
+      - web
+
+  web:
+    build: .
+    command: "gunicorn shorten_url.wsgi:application --bind 0.0.0.0:8010"
+    restart: always
+    expose:
+      - 8010
+    depends_on:
+      - mongo
+    env_file:
+      - .env.example
+    volumes:
+      - static_volume:/usr/src/app/static
+      - media_volume:/usr/src/app/media
+
+  mongo:
+    image: mongo
+    restart: always
+    env_file:
+      - .env.example
+    ports:
+      - 27022:27021
+
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - 6380:6379
+
+volumes:
+  static_volume:
+  media_volume:
