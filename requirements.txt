@@ -8,5 +8,5 @@ mysqlclient==2.1.0
 drf-yasg==1.21.5
 gunicorn==20.1.0
 Django==3.2.18
-djangorestframework==3.14.0
+djangorestframework==3.13.0
 django-filter==22.1
